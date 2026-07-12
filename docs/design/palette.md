@@ -1,6 +1,6 @@
 # 候選配色方案
 
-> **狀態:候選方案,待 Cooper 拍板。本文件不含最終決定。**
+> **狀態:2026-07-12 Cooper 拍板:採用方案 A(Neon Purple × Rose)。主題系統映射:primary=#7C3AED、secondary=#F43F5E(CTA 玫紅作為可調輔色),#A78BFA 由衍生階(primary-soft)自動產生;bg=#0F0F23、surface=#1E1C35、text=#E2E8F0;字型 Russo One + Chakra Petch。其餘方案保留作為預設主題切換選項。**
 >
 > 產出方式:ui-ux-pro-max skill `scripts/search.py`(colors.csv / typography.csv 資料庫查詢)。
 > 前提:深色背景遊戲官網(參考規格調性 #0b0b14)。
