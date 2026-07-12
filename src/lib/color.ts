@@ -12,7 +12,7 @@ export function hexToHsl(hex: string): { h: number; s: number; l: number } {
   if (max === r) h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
   else if (max === g) h = ((b - r) / d + 2) / 6;
   else h = ((r - g) / d + 4) / 6;
-  return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+  return { h: Math.round(h * 360) % 360, s: Math.round(s * 100), l: Math.round(l * 100) };
 }
 
 export function hslToHex(h: number, s: number, l: number): string {
@@ -34,10 +34,18 @@ function shades(prefix: string, hex: string): Record<string, string> {
     [`--${prefix}`]: hex,
     [`--${prefix}-strong`]: hslToHex(h, s, clamp(l - 14)),
     [`--${prefix}-soft`]: hslToHex(h, clamp(s - 10), clamp(l + 22)),
-    [`--${prefix}-faint`]: hslToHex(h, clamp(s - 30), clamp(l + 42)),
+    // faint 採相對式:向白靠攏 88%,避免亮色 clamp 成純白而失去色相 tint
+    [`--${prefix}-faint`]: hslToHex(h, clamp(s - 30), clamp(l + (100 - l) * 0.88)),
   };
 }
 
+const HEX_RE = /^#[0-9a-f]{6}$/i;
+
 export function deriveShades(primary: string, secondary: string): Record<string, string> {
+  for (const [name, value] of [['primary', primary], ['secondary', secondary]] as const) {
+    if (!HEX_RE.test(value)) {
+      throw new Error(`deriveShades: ${name} 必須是 #rrggbb 格式的 hex 色碼,收到:「${value}」`);
+    }
+  }
   return { ...shades('primary', primary), ...shades('secondary', secondary) };
 }

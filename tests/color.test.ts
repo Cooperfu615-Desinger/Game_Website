@@ -7,7 +7,8 @@ describe('hexToHsl / hslToHex', () => {
     for (const hex of ['#7c3aed', '#f59e0b', '#000000', '#ffffff']) {
       const { h, s, l } = hexToHsl(hex);
       const back = hexToHsl(hslToHex(h, s, l));
-      expect(Math.abs(back.h - h)).toBeLessThanOrEqual(1);
+      const dh = Math.abs(back.h - h);
+      expect(Math.min(dh, 360 - dh)).toBeLessThanOrEqual(1);
       expect(Math.abs(back.s - s)).toBeLessThanOrEqual(1);
       expect(Math.abs(back.l - l)).toBeLessThanOrEqual(1);
     }
@@ -30,6 +31,18 @@ describe('deriveShades', () => {
     const vars = deriveShades('#7c3aed', '#f59e0b');
     expect(hexToHsl(vars['--primary-strong']).l).toBeLessThan(hexToHsl('#7c3aed').l);
     expect(hexToHsl(vars['--primary-soft']).l).toBeGreaterThan(hexToHsl('#7c3aed').l);
+  });
+  it('faint 對亮色不 clamp 成純白,且主/輔 faint 可區分', () => {
+    const vars = deriveShades('#7C3AED', '#F43F5E');
+    expect(vars['--primary-faint']).not.toBe('#ffffff');
+    expect(vars['--secondary-faint']).not.toBe('#ffffff');
+    expect(vars['--primary-faint']).not.toBe(vars['--secondary-faint']);
+  });
+  it('非法輸入 throw', () => {
+    for (const bad of ['#abc', 'red', '']) {
+      expect(() => deriveShades(bad, '#7c3aed')).toThrow();
+      expect(() => deriveShades('#7c3aed', bad)).toThrow();
+    }
   });
   it('極端亮色不會超出 0~100 範圍', () => {
     const vars = deriveShades('#ffffff', '#000000');
