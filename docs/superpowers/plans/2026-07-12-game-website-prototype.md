@@ -54,7 +54,7 @@ tests/
 
 ```bash
 cd /Users/cooperfu/Desktop/Game_Website
-npx create-next-app@latest web-tmp --ts --tailwind --eslint --app --src-dir --no-import-alias --use-npm --yes
+npx create-next-app@latest web-tmp --ts --tailwind --eslint --app --src-dir --import-alias "@/*" --use-npm --yes
 # 搬入根目錄(保留既有 docs/.claude/.git)
 rsync -a web-tmp/ ./ --exclude .git --exclude README.md
 rm -rf web-tmp
