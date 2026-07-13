@@ -2,17 +2,21 @@ import Link from 'next/link';
 import { Reveal } from '@/components/Reveal';
 import { SectionHeader } from '@/components/SectionHeader';
 import { GameCard } from '@/components/GameCard';
+import { BackgroundVideo } from '@/components/BackgroundVideo';
 import { company } from '@/data/company';
-import { categories } from '@/data/categories';
+import { getCategory } from '@/data/categories';
 import { gamesByCategory } from '@/data/games';
 
 export default function Home() {
+  const slots = getCategory('slots')!;
+  const card = getCategory('card')!;
+  const mini = getCategory('mini')!;
+
   return (
     <>
       {/* Hero:滿版吸附 */}
-      <section className="snap-hero relative flex h-[100dvh] items-center justify-center overflow-hidden bg-gradient-to-b from-primary-strong/40 via-bg to-bg">
-        <div aria-hidden className="absolute inset-0 opacity-20 [background-image:radial-gradient(var(--primary)_1px,transparent_1px)] [background-size:32px_32px]" />
-        <div className="relative text-center">
+      <BackgroundVideo src="hero.mp4" className="snap-hero h-[100dvh]">
+        <div className="text-center">
           <h1 className="font-display text-5xl font-black tracking-tight text-fg md:text-7xl">{company.name}</h1>
           <p className="mt-4 text-xl text-primary-soft md:text-2xl">{company.tagline}</p>
           <Link href="/games" className="mt-10 inline-block rounded-full bg-primary px-8 py-3 font-bold text-white transition hover:bg-primary-strong">
@@ -20,17 +24,19 @@ export default function Home() {
           </Link>
         </div>
         <span className="absolute bottom-8 animate-bounce text-fg-muted motion-reduce:animate-none">▼ 往下滑動</span>
-      </section>
+      </BackgroundVideo>
 
-      <div className="mx-auto max-w-6xl space-y-28 px-4 py-24">
-        <section id="about" className="scroll-mt-20">
+      <BackgroundVideo src="about.mp4" id="about" className="scroll-mt-20 min-h-[60vh] py-24">
+        <div className="mx-auto max-w-6xl px-4">
           <Reveal>
             <SectionHeader title="公司簡介" href="/about" />
             <p className="max-w-3xl text-lg leading-relaxed text-fg-muted">{company.intro}</p>
           </Reveal>
-        </section>
+        </div>
+      </BackgroundVideo>
 
-        <section id="features" className="scroll-mt-20">
+      <BackgroundVideo src="features.mp4" id="features" className="scroll-mt-20 min-h-[70vh] py-24">
+        <div className="mx-auto max-w-6xl px-4">
           <Reveal>
             <SectionHeader title="公司特色" href="/features" />
             <div className="grid gap-6 md:grid-cols-4">
@@ -44,9 +50,11 @@ export default function Home() {
               ))}
             </div>
           </Reveal>
-        </section>
+        </div>
+      </BackgroundVideo>
 
-        <section id="timeline" className="scroll-mt-20">
+      <BackgroundVideo src="timeline.mp4" id="timeline" className="scroll-mt-20 min-h-[60vh] py-24">
+        <div className="mx-auto max-w-6xl px-4">
           <Reveal>
             <SectionHeader title="公司時間軸" href="/timeline" />
             <ol className="flex flex-col gap-4 md:flex-row md:gap-0">
@@ -58,29 +66,50 @@ export default function Home() {
               ))}
             </ol>
           </Reveal>
-        </section>
+        </div>
+      </BackgroundVideo>
 
-        <section id="games" className="scroll-mt-20">
+      <BackgroundVideo src="slots.mp4" id="games" className="scroll-mt-20 min-h-[70vh] py-24">
+        <div className="mx-auto max-w-6xl px-4">
           <Reveal>
-            <SectionHeader title="遊戲" href="/games" />
-            {categories.map((c) => (
-              <div key={c.slug} className="mb-10">
-                <h3 className="mb-4 text-lg font-bold text-fg">{c.name}</h3>
-                <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-                  {gamesByCategory(c.slug).slice(0, 3).map((g) => <GameCard key={g.slug} game={g} />)}
-                </div>
-              </div>
-            ))}
+            <SectionHeader title={slots.name} href={`/games/${slots.slug}`} />
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+              {gamesByCategory(slots.slug).slice(0, 3).map((g) => <GameCard key={g.slug} game={g} />)}
+            </div>
           </Reveal>
-        </section>
+        </div>
+      </BackgroundVideo>
 
-        <section id="contact" className="scroll-mt-20">
+      <BackgroundVideo src="card.mp4" className="min-h-[70vh] py-24">
+        <div className="mx-auto max-w-6xl px-4">
+          <Reveal>
+            <SectionHeader title={card.name} href={`/games/${card.slug}`} />
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+              {gamesByCategory(card.slug).slice(0, 3).map((g) => <GameCard key={g.slug} game={g} />)}
+            </div>
+          </Reveal>
+        </div>
+      </BackgroundVideo>
+
+      <BackgroundVideo src="mini.mp4" className="min-h-[70vh] py-24">
+        <div className="mx-auto max-w-6xl px-4">
+          <Reveal>
+            <SectionHeader title={mini.name} href={`/games/${mini.slug}`} />
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+              {gamesByCategory(mini.slug).slice(0, 3).map((g) => <GameCard key={g.slug} game={g} />)}
+            </div>
+          </Reveal>
+        </div>
+      </BackgroundVideo>
+
+      <BackgroundVideo src="contact.mp4" id="contact" className="scroll-mt-20 min-h-[50vh] py-24">
+        <div className="mx-auto max-w-6xl px-4">
           <Reveal>
             <SectionHeader title="聯絡我們" href="/contact" />
             <p className="text-fg-muted">{company.contact.email} ・ {company.contact.phone}</p>
           </Reveal>
-        </section>
-      </div>
+        </div>
+      </BackgroundVideo>
     </>
   );
 }
