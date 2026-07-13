@@ -44,6 +44,8 @@ export function BackgroundVideo({
         />
       )}
       <div aria-hidden="true" className="absolute inset-0 bg-bg/60" />
+      <div aria-hidden="true" className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-bg to-transparent md:h-32" />
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-bg to-transparent md:h-32" />
       <div className="relative z-10 w-full">{children}</div>
     </section>
   );
