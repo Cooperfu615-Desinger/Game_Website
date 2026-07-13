@@ -1,10 +1,17 @@
 import { notFound } from 'next/navigation';
 import { categories, getCategory } from '@/data/categories';
 import { gamesByCategory } from '@/data/games';
+import { company } from '@/data/company';
 import { GameCard } from '@/components/GameCard';
 
 export function generateStaticParams() {
   return categories.map((c) => ({ category: c.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ category: string }> }) {
+  const { category } = await params;
+  const cat = getCategory(category);
+  return { title: cat ? `${cat.name}大廳 | ${company.name}` : `遊戲 | ${company.name}` };
 }
 
 export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
