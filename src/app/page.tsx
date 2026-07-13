@@ -10,8 +10,8 @@ export default function Home() {
   return (
     <>
       {/* Hero:滿版吸附 */}
-      <section className="snap-hero relative flex h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-primary-strong/40 via-bg to-bg">
-        <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(var(--primary)_1px,transparent_1px)] [background-size:32px_32px]" />
+      <section className="snap-hero relative flex h-[100dvh] items-center justify-center overflow-hidden bg-gradient-to-b from-primary-strong/40 via-bg to-bg">
+        <div aria-hidden className="absolute inset-0 opacity-20 [background-image:radial-gradient(var(--primary)_1px,transparent_1px)] [background-size:32px_32px]" />
         <div className="relative text-center">
           <h1 className="font-display text-5xl font-black tracking-tight text-fg md:text-7xl">{company.name}</h1>
           <p className="mt-4 text-xl text-primary-soft md:text-2xl">{company.tagline}</p>
@@ -19,7 +19,7 @@ export default function Home() {
             探索遊戲 →
           </Link>
         </div>
-        <span className="absolute bottom-8 animate-bounce text-fg-muted">▼ 往下滑動</span>
+        <span className="absolute bottom-8 animate-bounce text-fg-muted motion-reduce:animate-none">▼ 往下滑動</span>
       </section>
 
       <div className="mx-auto max-w-6xl space-y-28 px-4 py-24">

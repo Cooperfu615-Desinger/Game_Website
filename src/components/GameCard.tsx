@@ -7,7 +7,7 @@ export function GameCard({ game }: { game: Game }) {
       className="group relative overflow-hidden rounded-2xl border border-white/5 bg-surface transition hover:-translate-y-1 hover:border-primary/50 hover:shadow-xl">
       <div className="flex aspect-[4/3] items-center justify-center bg-gradient-to-br from-primary-strong/60 to-secondary-strong/40">
         {game.thumbnail
-          ? <img src={game.thumbnail} alt={game.name} className="h-full w-full object-cover" />
+          ? <img src={game.thumbnail} alt={game.name} loading="lazy" className="h-full w-full object-cover" />
           : <span className="px-3 text-center text-xl font-black text-white/85">{game.name}</span>}
       </div>
       <div className="flex items-center justify-between p-3">
