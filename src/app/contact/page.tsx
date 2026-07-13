@@ -11,9 +11,9 @@ export default function ContactPage() {
           <p>地址:{company.contact.address}</p>
         </div>
         <form className="space-y-4" aria-label="聯絡表單(原型,不會送出)">
-          <input className="w-full rounded-lg border border-white/10 bg-surface px-4 py-2.5 text-fg" placeholder="您的名稱" />
-          <input className="w-full rounded-lg border border-white/10 bg-surface px-4 py-2.5 text-fg" placeholder="Email" type="email" />
-          <textarea className="h-28 w-full rounded-lg border border-white/10 bg-surface px-4 py-2.5 text-fg" placeholder="訊息內容" />
+          <input name="name" aria-label="您的名稱" className="w-full rounded-lg border border-white/10 bg-surface px-4 py-2.5 text-fg" placeholder="您的名稱" />
+          <input name="email" aria-label="Email" className="w-full rounded-lg border border-white/10 bg-surface px-4 py-2.5 text-fg" placeholder="Email" type="email" />
+          <textarea name="message" aria-label="訊息內容" className="h-28 w-full rounded-lg border border-white/10 bg-surface px-4 py-2.5 text-fg" placeholder="訊息內容" />
           <button type="button" className="w-full rounded-lg bg-primary py-2.5 font-bold text-white transition hover:bg-primary-strong">
             送出(原型示意)
           </button>
