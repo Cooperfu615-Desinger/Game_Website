@@ -19,7 +19,7 @@ export function Navbar() {
         </Link>
         <ul className="hidden gap-6 text-sm text-fg-muted md:flex">
           {links.map((l) => (
-            <li key={l.href}><Link href={l.href} className="inline-block py-2 transition hover:text-primary">{l.label}</Link></li>
+            <li key={l.href}><Link href={l.href} className="inline-block py-2 transition hover:text-primary-soft">{l.label}</Link></li>
           ))}
         </ul>
       </nav>
