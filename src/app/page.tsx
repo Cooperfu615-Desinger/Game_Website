@@ -1,65 +1,86 @@
-import Image from "next/image";
+import Link from 'next/link';
+import { Reveal } from '@/components/Reveal';
+import { SectionHeader } from '@/components/SectionHeader';
+import { GameCard } from '@/components/GameCard';
+import { company } from '@/data/company';
+import { categories } from '@/data/categories';
+import { gamesByCategory } from '@/data/games';
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      {/* Hero:滿版吸附 */}
+      <section className="snap-hero relative flex h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-primary-strong/40 via-bg to-bg">
+        <div className="absolute inset-0 opacity-20 [background-image:radial-gradient(var(--primary)_1px,transparent_1px)] [background-size:32px_32px]" />
+        <div className="relative text-center">
+          <h1 className="font-display text-5xl font-black tracking-tight text-fg md:text-7xl">{company.name}</h1>
+          <p className="mt-4 text-xl text-primary-soft md:text-2xl">{company.tagline}</p>
+          <Link href="/games" className="mt-10 inline-block rounded-full bg-primary px-8 py-3 font-bold text-white transition hover:bg-primary-strong">
+            探索遊戲 →
+          </Link>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        <span className="absolute bottom-8 animate-bounce text-fg-muted">▼ 往下滑動</span>
+      </section>
+
+      <div className="mx-auto max-w-6xl space-y-28 px-4 py-24">
+        <section id="about" className="scroll-mt-20">
+          <Reveal>
+            <SectionHeader title="公司簡介" href="/about" />
+            <p className="max-w-3xl text-lg leading-relaxed text-fg-muted">{company.intro}</p>
+          </Reveal>
+        </section>
+
+        <section id="features" className="scroll-mt-20">
+          <Reveal>
+            <SectionHeader title="公司特色" href="/features" />
+            <div className="grid gap-6 md:grid-cols-4">
+              {company.features.map((f, i) => (
+                <Reveal key={f.title} delay={i * 0.1}>
+                  <div className="h-full rounded-2xl border border-white/5 bg-surface p-6">
+                    <h3 className="mb-2 font-bold text-primary-soft">{f.title}</h3>
+                    <p className="text-sm text-fg-muted">{f.description}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </Reveal>
+        </section>
+
+        <section id="timeline" className="scroll-mt-20">
+          <Reveal>
+            <SectionHeader title="公司時間軸" href="/timeline" />
+            <ol className="flex flex-col gap-4 md:flex-row md:gap-0">
+              {company.milestones.map((m) => (
+                <li key={m.year} className="relative flex-1 border-l-2 border-primary/40 pl-4 md:border-l-0 md:border-t-2 md:pl-0 md:pr-4 md:pt-4">
+                  <span className="font-black text-secondary">{m.year}</span>
+                  <p className="font-bold text-fg">{m.title}</p>
+                </li>
+              ))}
+            </ol>
+          </Reveal>
+        </section>
+
+        <section id="games" className="scroll-mt-20">
+          <Reveal>
+            <SectionHeader title="遊戲" href="/games" />
+            {categories.map((c) => (
+              <div key={c.slug} className="mb-10">
+                <h3 className="mb-4 text-lg font-bold text-fg">{c.name}</h3>
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+                  {gamesByCategory(c.slug).slice(0, 3).map((g) => <GameCard key={g.slug} game={g} />)}
+                </div>
+              </div>
+            ))}
+          </Reveal>
+        </section>
+
+        <section id="contact" className="scroll-mt-20">
+          <Reveal>
+            <SectionHeader title="聯絡我們" href="/contact" />
+            <p className="text-fg-muted">{company.contact.email} ｜ {company.contact.phone}</p>
+          </Reveal>
+        </section>
+      </div>
+    </>
   );
 }
