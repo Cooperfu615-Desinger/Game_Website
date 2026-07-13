@@ -28,16 +28,18 @@
   --color-surface: var(--surface);
   --color-fg: var(--text);
   --color-fg-muted: var(--text-muted);
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), var(--font-body), sans-serif;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
 body { background: var(--bg); color: var(--text); }
 
-/* 首頁混搭滾動:proximity 只在 hero 產生吸附感 */
-.snap-container { scroll-snap-type: y proximity; }
+/* 首頁混搭滾動:proximity 只在 hero 產生吸附感。
+   scroll-snap-type 必須掛在實際滾動的元素(viewport = html)才會生效,
+   其他頁面沒有 snap-align 元素,全域設定無副作用。 */
 .snap-hero { scroll-snap-align: start; }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .snap-container { scroll-snap-type: none; }
+  html { scroll-behavior: auto; scroll-snap-type: none; }
 }
