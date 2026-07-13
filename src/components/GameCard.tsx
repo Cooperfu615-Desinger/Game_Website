@@ -12,7 +12,7 @@ export function GameCard({ game }: { game: Game }) {
       </div>
       <div className="flex items-center justify-between p-3">
         <span className="text-sm font-bold text-fg">{game.name}</span>
-        <span className={`rounded-full px-2 py-0.5 text-xs ${game.status === 'live' ? 'bg-secondary/20 text-secondary' : 'bg-fg-muted/15 text-fg-muted'}`}>
+        <span className={`rounded-full px-2 py-0.5 text-xs ${game.status === 'live' ? 'bg-secondary/30 text-secondary-soft' : 'bg-fg-muted/15 text-fg-muted'}`}>
           {game.status === 'live' ? '已上線' : '開發中'}
         </span>
       </div>

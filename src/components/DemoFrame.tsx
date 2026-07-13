@@ -4,7 +4,7 @@ export function DemoFrame({ demoUrl, name }: { demoUrl?: string; name: string })
       <div className="flex aspect-video w-full items-center justify-center rounded-2xl border border-white/5 bg-gradient-to-br from-primary-strong/50 to-surface">
         <div className="text-center">
           <p className="text-3xl font-black text-white/90">{name}</p>
-          <p className="mt-3 rounded-full bg-secondary/20 px-4 py-1 text-sm text-secondary">DEMO 即將推出</p>
+          <p className="mt-3 rounded-full bg-secondary/30 px-4 py-1 text-sm text-secondary-soft">DEMO 即將推出</p>
         </div>
       </div>
     );

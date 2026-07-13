@@ -25,13 +25,13 @@ export function DevColorPanel() {
           <div className="mb-3 flex flex-wrap gap-2">
             {presets.map((p) => (
               <button key={p.name} onClick={() => setColors({ primary: p.primary, secondary: p.secondary })}
-                className="rounded-full border border-fg-muted/30 px-2 py-1 text-xs text-fg hover:border-primary"
+                className="rounded-full border border-fg-muted/30 px-2 py-2 text-xs text-fg hover:border-primary"
                 style={{ background: `linear-gradient(90deg, ${p.primary}, ${p.secondary})` }}>
                 {p.name}
               </button>
             ))}
           </div>
-          <button onClick={reset} className="w-full rounded-lg border border-fg-muted/30 py-1.5 text-xs text-fg-muted hover:text-fg">重置為預設</button>
+          <button onClick={reset} className="w-full rounded-lg border border-fg-muted/30 py-2 text-xs text-fg-muted hover:text-fg">重置為預設</button>
         </div>
       )}
       <button onClick={() => setOpen(!open)} aria-label="開發調色工具"

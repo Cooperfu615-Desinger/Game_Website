@@ -21,7 +21,7 @@ export default function GamesPage() {
               <h2 className="text-2xl font-black text-fg group-hover:text-primary-soft">{c.name}</h2>
               <p className="mt-3 text-sm leading-relaxed text-fg-muted">{c.description}</p>
               <p className="mt-6 text-sm text-secondary">{list.length} 款遊戲 ・ {live} 款已上線 ・ {list.length - live} 款開發中</p>
-              <span className="mt-4 inline-block text-primary">進入大廳 →</span>
+              <span className="mt-4 inline-block text-primary-soft">進入大廳 →</span>
             </Link>
           );
         })}
