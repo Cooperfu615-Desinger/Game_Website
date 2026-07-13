@@ -35,6 +35,8 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       if (saved) {
         const parsed: unknown = JSON.parse(saved);
         if (isValidThemeState(parsed)) {
+          // client-only 初始化:localStorage 僅 client 可讀,SSR 無值,故只能 mount 後同步套用
+          // eslint-disable-next-line react-hooks/set-state-in-effect
           setColorsState(parsed);
           applyToDom(parsed);
         } else {
