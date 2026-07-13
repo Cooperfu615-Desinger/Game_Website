@@ -48,7 +48,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const setColors = (c: ThemeState) => {
     try {
       applyToDom(c);
-    } catch { return; /* 非法色碼不套用、不儲存 */ }
+    } catch (e) { console.warn(e); return; /* 非法色碼不套用、不儲存 */ }
     setColorsState(c);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(c));
   };
