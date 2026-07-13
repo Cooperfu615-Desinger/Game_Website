@@ -9,7 +9,7 @@ export const metadata = { title: `遊戲總覽 | ${company.name}` };
 export default function GamesPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 pb-24 pt-28">
-      <h1 className="mb-3 text-4xl font-black text-fg"><span className="mr-3 text-secondary">/</span>遊戲總覽</h1>
+      <h1 className="mb-3 text-4xl font-black text-fg"><span className="mr-3 text-secondary" aria-hidden="true">/</span>遊戲總覽</h1>
       <p className="mb-10 text-fg-muted">選擇類別進入遊戲大廳</p>
       <div className="grid gap-6 md:grid-cols-3">
         {categories.map((c) => {

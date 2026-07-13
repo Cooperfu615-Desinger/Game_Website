@@ -24,4 +24,20 @@ describe('資料完整性', () => {
       expect(games.some((g) => g.category === c.slug), `${c.name} 無遊戲`).toBe(true);
     }
   });
+
+  it('categories 自身 slug 不重複', () => {
+    const seen = new Set<string>();
+    for (const c of categories) {
+      expect(seen.has(c.slug), `重複類別 slug:${c.slug}`).toBe(false);
+      seen.add(c.slug);
+    }
+  });
+
+  it('每款 slots 類遊戲的 specs 必含 reels、lines、rtp', () => {
+    for (const g of games.filter((g) => g.category === 'slots')) {
+      expect(g.specs.reels, `${g.name} 缺 reels`).toBeTruthy();
+      expect(g.specs.lines, `${g.name} 缺 lines`).toBeTruthy();
+      expect(g.specs.rtp, `${g.name} 缺 rtp`).toBeTruthy();
+    }
+  });
 });

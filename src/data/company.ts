@@ -16,6 +16,6 @@ export const company = {
     { year: '2022', title: '棋牌產品線啟動', description: '德州撲克多人平台上線。(示意)' },
     { year: '2024', title: '迷你遊戲系列', description: '快節奏休閒產品線發布。(示意)' },
     { year: '2026', title: '次世代平台', description: '全新遊戲大廳與內容中台。(示意)' },
-  ] as Milestone[],
+  ] satisfies Milestone[],
   contact: { email: 'contact@example.com', phone: '+886-2-0000-0000', address: '台北市信義區示意路 100 號 10F' },
 };

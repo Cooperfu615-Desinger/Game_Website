@@ -10,7 +10,8 @@ export function DemoFrame({ demoUrl, name }: { demoUrl?: string; name: string })
     );
   }
   return (
-    <iframe src={demoUrl} title={`${name} DEMO`} allow="fullscreen"
+    /* 自家 DEMO,故不設 sandbox */
+    <iframe src={demoUrl} title={`${name} DEMO`} allow="fullscreen" loading="lazy"
       className="aspect-video w-full rounded-2xl border border-white/5 bg-black" />
   );
 }

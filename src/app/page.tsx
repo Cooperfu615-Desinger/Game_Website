@@ -77,7 +77,7 @@ export default function Home() {
         <section id="contact" className="scroll-mt-20">
           <Reveal>
             <SectionHeader title="聯絡我們" href="/contact" />
-            <p className="text-fg-muted">{company.contact.email} ｜ {company.contact.phone}</p>
+            <p className="text-fg-muted">{company.contact.email} ・ {company.contact.phone}</p>
           </Reveal>
         </section>
       </div>
