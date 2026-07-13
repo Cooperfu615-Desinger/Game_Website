@@ -24,10 +24,10 @@ export const metadata: Metadata = { title: company.name, description: company.ta
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-Hant" className={`${displayFont.variable} ${bodyFont.variable}`}>
-      <body className="font-sans antialiased">
+      <body className="flex min-h-dvh flex-col font-sans antialiased">
         <ThemeProvider>
           <Navbar />
-          <main>{children}</main>
+          <main className="flex-1">{children}</main>
           <Footer />
           <DevColorPanel />
         </ThemeProvider>
