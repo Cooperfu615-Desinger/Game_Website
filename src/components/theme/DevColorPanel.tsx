@@ -6,7 +6,7 @@ import { presets } from '@/data/themes';
 
 export function DevColorPanel() {
   const [open, setOpen] = useState(false);
-  const { primary, secondary, setColors, reset } = useTheme();
+  const { primary, secondary, base, setColors, reset } = useTheme();
 
   return (
     <div className="fixed bottom-5 right-5 z-50">
@@ -15,16 +15,20 @@ export function DevColorPanel() {
           <h3 className="mb-3 text-sm font-bold text-fg">開發調色工具</h3>
           <label className="mb-2 flex items-center justify-between text-sm text-fg-muted">
             主色
-            <input type="color" value={primary} onChange={(e) => setColors({ primary: e.target.value, secondary })} className="h-8 w-14 cursor-pointer rounded" />
+            <input type="color" value={base} onChange={(e) => setColors({ primary, secondary, base: e.target.value })} className="h-8 w-14 cursor-pointer rounded" />
+          </label>
+          <label className="mb-2 flex items-center justify-between text-sm text-fg-muted">
+            輔色
+            <input type="color" value={primary} onChange={(e) => setColors({ primary: e.target.value, secondary, base })} className="h-8 w-14 cursor-pointer rounded" />
           </label>
           <label className="mb-3 flex items-center justify-between text-sm text-fg-muted">
-            輔色
-            <input type="color" value={secondary} onChange={(e) => setColors({ primary, secondary: e.target.value })} className="h-8 w-14 cursor-pointer rounded" />
+            點綴色
+            <input type="color" value={secondary} onChange={(e) => setColors({ primary, secondary: e.target.value, base })} className="h-8 w-14 cursor-pointer rounded" />
           </label>
           <p className="mb-1 text-xs text-fg-muted">預設主題</p>
           <div className="mb-3 flex flex-wrap gap-2">
             {presets.map((p) => (
-              <button key={p.name} onClick={() => setColors({ primary: p.primary, secondary: p.secondary })}
+              <button key={p.name} onClick={() => setColors({ primary: p.primary, secondary: p.secondary, base: p.base })}
                 className="rounded-full border border-fg-muted/30 px-2 py-2 text-xs text-fg hover:border-primary"
                 style={{ background: `linear-gradient(90deg, ${p.primary}, ${p.secondary})` }}>
                 {p.name}

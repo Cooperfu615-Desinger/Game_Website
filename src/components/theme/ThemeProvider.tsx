@@ -1,10 +1,10 @@
 // src/components/theme/ThemeProvider.tsx
 'use client';
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { deriveShades } from '@/lib/color';
+import { deriveShades, deriveBaseShades } from '@/lib/color';
 import { DEFAULT_THEME } from '@/data/themes';
 
-type ThemeState = { primary: string; secondary: string };
+type ThemeState = { primary: string; secondary: string; base: string };
 type ThemeContextValue = ThemeState & {
   setColors: (c: ThemeState) => void;
   reset: () => void;
@@ -17,17 +17,18 @@ function isValidThemeState(v: unknown): v is ThemeState {
   return (
     typeof v === 'object' && v !== null &&
     HEX_RE.test((v as ThemeState).primary ?? '') &&
-    HEX_RE.test((v as ThemeState).secondary ?? '')
+    HEX_RE.test((v as ThemeState).secondary ?? '') &&
+    HEX_RE.test((v as ThemeState).base ?? '')
   );
 }
 
 function applyToDom(c: ThemeState) {
-  const vars = deriveShades(c.primary, c.secondary);
+  const vars = { ...deriveShades(c.primary, c.secondary), ...deriveBaseShades(c.base) };
   for (const [k, v] of Object.entries(vars)) document.documentElement.style.setProperty(k, v);
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [colors, setColorsState] = useState<ThemeState>({ primary: DEFAULT_THEME.primary, secondary: DEFAULT_THEME.secondary });
+  const [colors, setColorsState] = useState<ThemeState>({ primary: DEFAULT_THEME.primary, secondary: DEFAULT_THEME.secondary, base: DEFAULT_THEME.base });
 
   useEffect(() => {
     try {
@@ -55,7 +56,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(c));
   };
   const reset = () => {
-    const c = { primary: DEFAULT_THEME.primary, secondary: DEFAULT_THEME.secondary };
+    const c = { primary: DEFAULT_THEME.primary, secondary: DEFAULT_THEME.secondary, base: DEFAULT_THEME.base };
     setColors(c);
     localStorage.removeItem(STORAGE_KEY);
   };

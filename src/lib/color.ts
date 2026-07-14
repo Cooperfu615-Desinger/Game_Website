@@ -49,3 +49,14 @@ export function deriveShades(primary: string, secondary: string): Record<string,
   }
   return { ...shades('primary', primary), ...shades('secondary', secondary) };
 }
+
+export function deriveBaseShades(base: string): Record<string, string> {
+  if (!HEX_RE.test(base)) {
+    throw new Error(`deriveBaseShades: base 必須是 #rrggbb 格式的 hex 色碼,收到:「${base}」`);
+  }
+  const { h, s, l } = hexToHsl(base);
+  return {
+    '--bg': base,
+    '--surface': hslToHex(h, clamp(s - 9), clamp(l + 6)),
+  };
+}
