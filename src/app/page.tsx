@@ -42,9 +42,9 @@ export default function Home() {
             <div className="grid gap-6 md:grid-cols-4">
               {company.features.map((f, i) => (
                 <Reveal key={f.title} delay={i * 0.1}>
-                  <div className="h-full rounded-2xl border border-white/5 bg-surface p-6">
+                  <div className="h-full min-h-[366px] rounded-2xl border border-white/5 bg-surface/50 p-6 backdrop-blur-lg">
                     <h3 className="mb-2 font-bold text-primary-soft">{f.title}</h3>
-                    <p className="text-sm text-fg-muted">{f.description}</p>
+                    <p className="text-sm text-fg">{f.description}</p>
                   </div>
                 </Reveal>
               ))}
