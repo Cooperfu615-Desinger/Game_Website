@@ -41,7 +41,7 @@ export default async function GamePage({ params }: { params: Promise<{ category:
 
       <div className="mt-12 grid gap-10 md:grid-cols-2">
         <section>
-          <h2 className="mb-4 text-xl font-bold text-fg"><span className="mr-2 text-secondary" aria-hidden="true">/</span>遊戲示意圖</h2>
+          <h2 className="mb-4 text-xl font-bold text-secondary">遊戲示意圖</h2>
           <div className="grid grid-cols-2 gap-3">
             {(game.screenshots.length ? game.screenshots : [1, 2, 3, 4]).map((s, i) => (
               typeof s === 'string'
@@ -51,7 +51,7 @@ export default async function GamePage({ params }: { params: Promise<{ category:
           </div>
         </section>
         <section>
-          <h2 className="mb-4 text-xl font-bold text-fg"><span className="mr-2 text-secondary" aria-hidden="true">/</span>規格與玩法</h2>
+          <h2 className="mb-4 text-xl font-bold text-secondary">規格與玩法</h2>
           {specRows.length > 0 && (
             <table className="mb-5 w-full text-sm">
               <tbody>

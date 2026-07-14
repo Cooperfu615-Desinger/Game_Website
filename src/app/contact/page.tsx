@@ -3,7 +3,7 @@ export const metadata = { title: `聯絡我們 | ${company.name}` };
 export default function ContactPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 pb-24 pt-36">
-      <h1 className="mb-10 text-4xl font-black text-fg"><span className="mr-3 text-secondary" aria-hidden="true">/</span>聯絡我們</h1>
+      <h1 className="mb-10 text-4xl font-black text-secondary">聯絡我們</h1>
       <div className="grid gap-10 md:grid-cols-2">
         <div className="space-y-4 text-fg-muted">
           <p>Email:{company.contact.email}</p>

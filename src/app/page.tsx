@@ -20,7 +20,7 @@ export default function Home() {
           <h1 className="font-display text-5xl font-black tracking-tight text-fg md:text-7xl">{company.name}</h1>
           <p className="mt-4 text-xl text-primary-soft md:text-2xl">{company.tagline}</p>
           <Link href="/games" className="mt-10 inline-block rounded-full bg-primary px-8 py-3 font-bold text-white transition hover:bg-primary-strong">
-            探索遊戲 →
+            探索遊戲
           </Link>
         </div>
         <span className="absolute bottom-8 text-fg-muted">▼ 往下滑動</span>
