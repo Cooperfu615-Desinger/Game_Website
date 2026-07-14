@@ -60,8 +60,10 @@ export function ServicePanel({ open, onClose }: { open: boolean; onClose: () => 
           type="button"
           aria-label="關閉客服視窗"
           onClick={onClose}
-          className="text-fg-muted transition hover:text-fg">
-          ✕
+          className="flex h-11 w-11 items-center justify-center rounded-full text-fg-muted transition hover:bg-fg/10 hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+          <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <path d="M6 6l12 12M18 6 6 18" strokeLinecap="round" />
+          </svg>
         </button>
       </div>
       <div className="flex-1 space-y-3 overflow-y-auto px-5 py-4">
@@ -87,12 +89,12 @@ export function ServicePanel({ open, onClose }: { open: boolean; onClose: () => 
             if (e.key === 'Enter') handleSend();
           }}
           placeholder="輸入訊息…"
-          className="flex-1 rounded-lg border border-white/10 bg-bg px-3 py-2 text-sm text-fg"
+          className="min-h-11 min-w-0 flex-1 rounded-lg border border-white/10 bg-bg px-3 py-2 text-sm text-fg"
         />
         <button
           type="button"
           onClick={handleSend}
-          className="rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white transition hover:bg-primary-strong">
+          className="min-h-11 rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white transition hover:bg-primary-strong focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
           送出
         </button>
       </div>

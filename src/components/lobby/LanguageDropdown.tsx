@@ -13,7 +13,7 @@ export function LanguageDropdown() {
         aria-label="語系選擇"
         value={lang}
         onChange={(e) => setLang(e.target.value)}
-        className="cursor-pointer rounded-md border border-white/10 bg-bg px-2 py-1.5 text-sm text-fg">
+        className="h-11 cursor-pointer rounded-md border border-white/10 bg-bg px-2 text-sm text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
         {LANGUAGES.map((l) => (
           <option key={l} value={l}>{l}</option>
         ))}

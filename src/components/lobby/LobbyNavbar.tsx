@@ -1,37 +1,43 @@
 'use client';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Link from 'next/link';
 import { company } from '@/data/company';
 import { LoginModal } from './LoginModal';
+import { ContactModal } from './ContactModal';
 import { ServicePanel } from './ServicePanel';
 import { LanguageDropdown } from './LanguageDropdown';
 
+type ActiveDialog = 'login' | 'contact' | 'service' | null;
+
 export function LobbyNavbar() {
-  const [loginOpen, setLoginOpen] = useState(false);
-  const [serviceOpen, setServiceOpen] = useState(false);
+  const [activeDialog, setActiveDialog] = useState<ActiveDialog>(null);
+  const closeDialog = useCallback(() => setActiveDialog(null), []);
 
   return (
     <>
       <header className="fixed top-0 z-40 w-full border-b border-white/5 bg-bg/60 backdrop-blur-lg">
-        <nav className="mx-auto flex h-24 max-w-6xl items-center justify-between px-4">
-          <Link href="/" className="-my-2 py-2 text-lg font-black tracking-wider text-fg">
+        <nav className="mx-auto flex h-24 max-w-6xl items-center justify-end px-4 md:justify-between">
+          <Link href="/" className="hidden min-h-11 items-center text-lg font-black tracking-wider text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white md:inline-flex">
             {company.name}
           </Link>
-          <div className="flex items-center gap-6 text-sm text-primary-soft">
-            <button type="button" onClick={() => setLoginOpen(true)} className="transition hover:text-fg">
+          <div className="flex items-center gap-2 text-sm text-primary-soft sm:gap-5 lg:gap-6">
+            <button type="button" onClick={() => setActiveDialog('login')} className="min-h-11 min-w-11 transition hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
               登入
             </button>
-            <Link href="/contact" className="transition hover:text-fg">聯絡我們</Link>
-            <button type="button" onClick={() => setServiceOpen(true)} className="transition hover:text-fg">
+            <button type="button" onClick={() => setActiveDialog('contact')} className="min-h-11 min-w-11 transition hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+              聯絡我們
+            </button>
+            <button type="button" onClick={() => setActiveDialog('service')} className="min-h-11 min-w-11 transition hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
               客服
             </button>
-            <Link href="/" className="transition hover:text-fg">官網</Link>
+            <Link href="/" className="inline-flex min-h-11 min-w-11 items-center justify-center transition hover:text-fg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">官網</Link>
             <LanguageDropdown />
           </div>
         </nav>
       </header>
-      <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
-      <ServicePanel open={serviceOpen} onClose={() => setServiceOpen(false)} />
+      <LoginModal open={activeDialog === 'login'} onClose={closeDialog} />
+      <ContactModal open={activeDialog === 'contact'} onClose={closeDialog} />
+      <ServicePanel open={activeDialog === 'service'} onClose={closeDialog} />
     </>
   );
 }
