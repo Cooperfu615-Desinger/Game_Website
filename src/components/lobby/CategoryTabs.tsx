@@ -3,7 +3,7 @@ import { categories } from '@/data/categories';
 
 export function CategoryTabs({ active }: { active: string }) {
   return (
-    <div className="flex gap-3">
+    <div className="flex justify-center gap-6">
       {categories.map((c) => (
         <Link
           key={c.slug}
