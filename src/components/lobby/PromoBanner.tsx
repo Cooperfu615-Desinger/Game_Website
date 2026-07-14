@@ -12,19 +12,22 @@ export function PromoBanner({ category }: { category: CategorySlug }) {
   const slides = bannersByCategory[category] ?? [];
   const [index, setIndex] = useState(0);
   const [resetSignal, setResetSignal] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
   const reduceMotion = useReducedMotion();
+  const isPaused = isHovered || isFocused;
 
-  // 自動輪播:每 AUTO_PLAY_MS 切到下一張;reduceMotion 時不啟動計時器。
+  // 自動輪播:每 AUTO_PLAY_MS 切到下一張;reduceMotion 或使用者暫停(hover/focus)時不啟動計時器。
   // resetSignal 變動(手動拖曳/點擊圓點)會清掉舊計時器、重新起算七秒。
   // 切換類別時,由外層以 key={category} 讓本元件整個重新掛載,
   // 天然重置 index/resetSignal 並透過 cleanup 清掉舊計時器,不需在這裡額外處理。
   useEffect(() => {
-    if (reduceMotion || slides.length <= 1) return;
+    if (reduceMotion || slides.length <= 1 || isPaused) return;
     const id = setInterval(() => {
       setIndex((i) => nextIndex(i, slides.length));
     }, AUTO_PLAY_MS);
     return () => clearInterval(id);
-  }, [reduceMotion, slides.length, resetSignal]);
+  }, [reduceMotion, slides.length, resetSignal, isPaused]);
 
   const handleDragEnd = (_event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     const decision = resolveSwipe(info.offset.x, info.velocity.x);
@@ -41,7 +44,16 @@ export function PromoBanner({ category }: { category: CategorySlug }) {
   if (slides.length === 0) return null;
 
   return (
-    <div className="relative h-[360px] w-full overflow-hidden" role="region" aria-label="宣傳輪播">
+    <div
+      className="relative h-[360px] w-full overflow-hidden"
+      role="region"
+      aria-label="宣傳輪播"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsFocused(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node)) setIsFocused(false);
+      }}>
       <motion.div
         className="h-full w-full cursor-grab active:cursor-grabbing"
         drag="x"
