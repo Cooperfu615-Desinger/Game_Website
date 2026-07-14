@@ -26,7 +26,7 @@ export default function Home() {
         <span className="absolute bottom-8 text-fg-muted">▼ 往下滑動</span>
       </BackgroundVideo>
 
-      <BackgroundVideo src="about.mp4" id="about" className="scroll-mt-20 min-h-[60dvh] py-24">
+      <BackgroundVideo src="about.mp4" id="about" className="scroll-mt-28 min-h-[60dvh] py-24">
         <div className="mx-auto max-w-6xl px-4">
           <Reveal>
             <SectionHeader title="公司簡介" href="/about" />
@@ -35,7 +35,7 @@ export default function Home() {
         </div>
       </BackgroundVideo>
 
-      <BackgroundVideo src="features.mp4" id="features" className="scroll-mt-20 min-h-[70dvh] py-24">
+      <BackgroundVideo src="features.mp4" id="features" className="scroll-mt-28 min-h-[70dvh] py-24">
         <div className="mx-auto max-w-6xl px-4">
           <Reveal>
             <SectionHeader title="公司特色" href="/features" />
@@ -53,7 +53,7 @@ export default function Home() {
         </div>
       </BackgroundVideo>
 
-      <BackgroundVideo src="timeline.mp4" id="timeline" className="scroll-mt-20 min-h-[60dvh] py-24">
+      <BackgroundVideo src="timeline.mp4" id="timeline" className="scroll-mt-28 min-h-[60dvh] py-24">
         <div className="mx-auto max-w-6xl px-4">
           <Reveal>
             <SectionHeader title="公司時間軸" href="/timeline" />
@@ -69,7 +69,7 @@ export default function Home() {
         </div>
       </BackgroundVideo>
 
-      <BackgroundVideo src="slots.mp4" id="games" className="scroll-mt-20 min-h-[70dvh] py-24">
+      <BackgroundVideo src="slots.mp4" id="games" className="scroll-mt-28 min-h-[70dvh] py-24">
         <div className="mx-auto max-w-6xl px-4">
           <Reveal>
             <SectionHeader title={slots.name} href={`/games/${slots.slug}`} />
@@ -102,7 +102,7 @@ export default function Home() {
         </div>
       </BackgroundVideo>
 
-      <BackgroundVideo src="contact.mp4" id="contact" className="scroll-mt-20 min-h-[50dvh] py-24">
+      <BackgroundVideo src="contact.mp4" id="contact" className="scroll-mt-28 min-h-[50dvh] py-24">
         <div className="mx-auto max-w-6xl px-4">
           <Reveal>
             <SectionHeader title="聯絡我們" href="/contact" />

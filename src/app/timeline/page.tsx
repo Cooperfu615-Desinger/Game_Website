@@ -2,7 +2,7 @@ import { company } from '@/data/company';
 export const metadata = { title: `公司時間軸 | ${company.name}` };
 export default function TimelinePage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 pb-24 pt-28">
+    <div className="mx-auto max-w-3xl px-4 pb-24 pt-36">
       <h1 className="mb-10 text-4xl font-black text-fg"><span className="mr-3 text-secondary" aria-hidden="true">/</span>公司時間軸</h1>
       <ol className="space-y-10 border-l-2 border-primary/40 pl-8">
         {company.milestones.map((m) => (

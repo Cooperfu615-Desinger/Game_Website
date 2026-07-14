@@ -2,7 +2,7 @@ import { company } from '@/data/company';
 export const metadata = { title: `公司簡介 | ${company.name}` };
 export default function AboutPage() {
   return (
-    <div className="mx-auto max-w-4xl px-4 pb-24 pt-28">
+    <div className="mx-auto max-w-4xl px-4 pb-24 pt-36">
       <h1 className="mb-8 text-4xl font-black text-fg"><span className="mr-3 text-secondary" aria-hidden="true">/</span>公司簡介</h1>
       <p className="text-lg leading-relaxed text-fg-muted">{company.intro}</p>
       <p className="mt-6 text-lg leading-relaxed text-fg-muted">
