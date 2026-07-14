@@ -33,11 +33,12 @@ describe('資料完整性', () => {
     }
   });
 
-  it('每款 slots 類遊戲的 specs 必含 reels、lines、rtp', () => {
+  it('每款 slots 類遊戲的 specs 必含 reels、lines、rtp、maxWin', () => {
     for (const g of games.filter((g) => g.category === 'slots')) {
       expect(g.specs.reels, `${g.name} 缺 reels`).toBeTruthy();
       expect(g.specs.lines, `${g.name} 缺 lines`).toBeTruthy();
       expect(g.specs.rtp, `${g.name} 缺 rtp`).toBeTruthy();
+      expect(g.specs.maxWin, `${g.name} 缺 maxWin`).toBeTruthy();
     }
   });
 });
