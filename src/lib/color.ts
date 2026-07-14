@@ -41,19 +41,20 @@ function shades(prefix: string, hex: string): Record<string, string> {
 
 const HEX_RE = /^#[0-9a-f]{6}$/i;
 
-export function deriveShades(primary: string, secondary: string): Record<string, string> {
-  for (const [name, value] of [['primary', primary], ['secondary', secondary]] as const) {
-    if (!HEX_RE.test(value)) {
-      throw new Error(`deriveShades: ${name} 必須是 #rrggbb 格式的 hex 色碼,收到:「${value}」`);
-    }
+function assertHex(name: string, value: string): void {
+  if (!HEX_RE.test(value)) {
+    throw new Error(`${name} 必須是 #rrggbb 格式的 hex 色碼,收到:「${value}」`);
   }
+}
+
+export function deriveShades(primary: string, secondary: string): Record<string, string> {
+  assertHex('primary', primary);
+  assertHex('secondary', secondary);
   return { ...shades('primary', primary), ...shades('secondary', secondary) };
 }
 
 export function deriveBaseShades(base: string): Record<string, string> {
-  if (!HEX_RE.test(base)) {
-    throw new Error(`deriveBaseShades: base 必須是 #rrggbb 格式的 hex 色碼,收到:「${base}」`);
-  }
+  assertHex('base', base);
   const { h, s, l } = hexToHsl(base);
   return {
     '--bg': base,
