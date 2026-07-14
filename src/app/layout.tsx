@@ -25,7 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="zh-Hant" className={`${displayFont.variable} ${bodyFont.variable}`}>
       <body className="flex min-h-dvh flex-col font-sans antialiased">
         <ThemeProvider>
-          <main className="flex-1">{children}</main>
+          {children}
           <Footer />
           <DevColorPanel />
         </ThemeProvider>

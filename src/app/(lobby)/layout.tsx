@@ -4,7 +4,7 @@ export default function LobbyLayout({ children }: { children: React.ReactNode })
   return (
     <>
       <LobbyNavbar />
-      {children}
+      <main className="flex-1">{children}</main>
     </>
   );
 }

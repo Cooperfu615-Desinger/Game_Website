@@ -43,3 +43,15 @@ body { background: var(--bg); color: var(--text); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; scroll-snap-type: none; }
 }
+
+/* 大廳客服面板滑入動畫:純 CSS keyframe,元件掛載時自動播放一次,
+   不需要額外的 React state 來切換 before/after,避免 effect 內 setState 的問題。 */
+@keyframes lobby-panel-slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.lobby-panel-slide-in { animation: lobby-panel-slide-in 300ms ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lobby-panel-slide-in { animation: none; }
+}
