@@ -3,62 +3,60 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { deriveShades, deriveBaseShades } from '@/lib/color';
 import { DEFAULT_THEME } from '@/data/themes';
+import {
+  isValidThemeColors,
+  normalizeThemeColors,
+  THEME_STORAGE_KEY,
+  type ThemeColors,
+} from '@/lib/themeTool';
 
-type ThemeState = { primary: string; secondary: string; base: string };
-type ThemeContextValue = ThemeState & {
-  setColors: (c: ThemeState) => void;
+type ThemeContextValue = ThemeColors & {
+  setColors: (c: ThemeColors) => void;
   reset: () => void;
 };
 const ThemeContext = createContext<ThemeContextValue | null>(null);
-const STORAGE_KEY = 'gw-theme-colors';
-const HEX_RE = /^#[0-9a-f]{6}$/i;
 
-function isValidThemeState(v: unknown): v is ThemeState {
-  return (
-    typeof v === 'object' && v !== null &&
-    HEX_RE.test((v as ThemeState).primary ?? '') &&
-    HEX_RE.test((v as ThemeState).secondary ?? '') &&
-    HEX_RE.test((v as ThemeState).base ?? '')
-  );
-}
-
-function applyToDom(c: ThemeState) {
+function applyToDom(c: ThemeColors) {
   const vars = { ...deriveShades(c.primary, c.secondary), ...deriveBaseShades(c.base) };
   for (const [k, v] of Object.entries(vars)) document.documentElement.style.setProperty(k, v);
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [colors, setColorsState] = useState<ThemeState>({ primary: DEFAULT_THEME.primary, secondary: DEFAULT_THEME.secondary, base: DEFAULT_THEME.base });
+  const [colors, setColorsState] = useState<ThemeColors>({ primary: DEFAULT_THEME.primary, secondary: DEFAULT_THEME.secondary, base: DEFAULT_THEME.base });
 
   useEffect(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      const saved = localStorage.getItem(THEME_STORAGE_KEY);
       if (saved) {
         const parsed: unknown = JSON.parse(saved);
-        if (isValidThemeState(parsed)) {
+        if (isValidThemeColors(parsed)) {
+          const normalized = normalizeThemeColors(parsed);
           // client-only 初始化:localStorage 僅 client 可讀,SSR 無值,故只能 mount 後同步套用
           // eslint-disable-next-line react-hooks/set-state-in-effect
-          setColorsState(parsed);
-          applyToDom(parsed);
+          setColorsState(normalized);
+          applyToDom(normalized);
         } else {
           // 壞資料就用預設,並清掉避免下次再讀到
-          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(THEME_STORAGE_KEY);
         }
       }
-    } catch { /* 壞資料就用預設 */ }
+    } catch {
+      try { localStorage.removeItem(THEME_STORAGE_KEY); } catch { /* 壞資料就用預設 */ }
+    }
   }, []);
 
-  const setColors = (c: ThemeState) => {
+  const setColors = (c: ThemeColors) => {
     try {
-      applyToDom(c);
-    } catch (e) { console.warn(e); return; /* 非法色碼不套用、不儲存 */ }
-    setColorsState(c);
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(c));
+      const normalized = normalizeThemeColors(c);
+      applyToDom(normalized);
+      setColorsState(normalized);
+      try { localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(normalized)); } catch { /* 儲存失敗不阻止即時預覽 */ }
+    } catch (e) { console.warn(e); /* 非法色碼不套用、不儲存 */ }
   };
   const reset = () => {
     const c = { primary: DEFAULT_THEME.primary, secondary: DEFAULT_THEME.secondary, base: DEFAULT_THEME.base };
     setColors(c);
-    localStorage.removeItem(STORAGE_KEY);
+    try { localStorage.removeItem(THEME_STORAGE_KEY); } catch { /* 無法存取時仍保留記憶體內重置 */ }
   };
 
   return <ThemeContext.Provider value={{ ...colors, setColors, reset }}>{children}</ThemeContext.Provider>;
