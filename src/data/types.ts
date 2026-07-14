@@ -12,5 +12,7 @@ export type Game = {
   screenshots: string[];
   specs: GameSpecs;
   demoUrl?: string;
+  isNew?: boolean;
+  isPopular?: boolean;
 };
 export type Milestone = { year: string; title: string; description: string };

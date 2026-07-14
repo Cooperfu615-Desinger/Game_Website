@@ -3,7 +3,6 @@ import { Russo_One, Chakra_Petch } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/theme/ThemeProvider';
 import { DevColorPanel } from '@/components/theme/DevColorPanel';
-import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { company } from '@/data/company';
 
@@ -26,7 +25,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="zh-Hant" className={`${displayFont.variable} ${bodyFont.variable}`}>
       <body className="flex min-h-dvh flex-col font-sans antialiased">
         <ThemeProvider>
-          <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
           <DevColorPanel />

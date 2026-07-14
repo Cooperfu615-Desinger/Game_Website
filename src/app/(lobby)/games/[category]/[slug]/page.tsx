@@ -28,7 +28,7 @@ export default async function GamePage({ params }: { params: Promise<{ category:
   ].filter(Boolean) as [string, string][];
 
   return (
-    <div className="mx-auto max-w-5xl px-4 pb-24 pt-36">
+    <div className="mx-auto max-w-5xl px-4 pb-24">
       <Link href={`/games/${category}`} className="inline-block py-2 text-sm text-fg-muted hover:text-primary-soft">← 返回{cat.name}大廳</Link>
       <div className="mt-4 flex items-center gap-4">
         <h1 className="text-4xl font-black text-fg">{game.name}</h1>
